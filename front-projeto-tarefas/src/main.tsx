@@ -6,11 +6,11 @@ import App from "./App.tsx";
 import { ThemeProvider } from "./components/theme-provider.tsx";
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <GlobalContext>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
-    </GlobalContext>
-  </StrictMode>
+  //<StrictMode>
+  <GlobalContext>
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
+  </GlobalContext>
+  //</StrictMode>
 );

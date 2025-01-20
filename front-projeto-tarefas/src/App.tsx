@@ -1,28 +1,22 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useEffect } from "react";
 import { ModeToggle } from "./components/theme-toggle";
+import { TaskCardsSection } from "./sections/tasks/TaskCardsSection";
+import { CreateTask } from "./sections/tasks/CreateTask";
 
 function App() {
+  useEffect(() => console.clear(), []);
+
   return (
     <>
       <ModeToggle />
-      <h1 className="text-red-500">Olá</h1>
+      <h1>Tarefas</h1>
 
-      <Accordion type="single" collapsible>
-        <AccordionItem value="item-1">
-          <AccordionTrigger>Is it accessible?</AccordionTrigger>
-          <AccordionContent>
-            Yes. It adheres to the WAI-ARIA design pattern.
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
+      <TaskCardsSection />
 
-      <Tabs defaultValue="account" className="w-full">
+      <CreateTask />
+
+      {/* <Tabs defaultValue="account" className="w-full">
         <TabsList>
           <TabsTrigger value="account">Account</TabsTrigger>
           <TabsTrigger value="password">Password</TabsTrigger>
@@ -31,7 +25,7 @@ function App() {
           Make changes to your account here.
         </TabsContent>
         <TabsContent value="password">Change your password here.</TabsContent>
-      </Tabs>
+      </Tabs> */}
     </>
   );
 }
