@@ -17,7 +17,7 @@ model User {
   id       Int    @id @default(autoincrement())
   email    String @unique
   name     String
-  tasks    String
+  tasks    Task[]
   password String
 }
 
@@ -25,9 +25,13 @@ model Task {
   id             Int        @id @default(autoincrement())
   title          String
   description    String?
-  dataVencimento DateTime
+  dataVencimento DateTime?
   priority       Priorities @default(BAIXA)
   projetoTitle   String?
+  isDone         Boolean    @default(false)
+  user           User       @relation(fields: [userId], references: [id])
+  userId         Int
+  position       Int        @default(autoincrement())
 }
 
 enum Priorities {

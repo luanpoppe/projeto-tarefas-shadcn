@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { getUserTasks } from "@/service/tasks";
+import { getUserTasks, markTaskAsDone } from "@/service/tasks";
 import { useIsLoading } from "@/utils/customHooks";
 import { useEffect, useState } from "react";
 
@@ -21,6 +21,12 @@ export function TaskCardsSection() {
     console.log("qtdCards.current: ", qtdCards);
     setQtdCards(qtdCards + 1);
     console.log("qtdCards.current: ", qtdCards);
+  }
+
+  function markAsDone(task: Task) {
+    markTaskAsDone(task.id);
+    const updatedTaskList = tasks.filter((t) => t.id != task.id);
+    setTasks(updatedTaskList);
   }
 
   useEffect(() => {
@@ -60,11 +66,14 @@ export function TaskCardsSection() {
                   {task.description && <p>Descrição: {task.description}</p>}
                   <p>Prioridade: {task.priority}</p>
                 </CardContent>
-                {/* <CardFooter>
-              
-                  return </section></section>
-              <p>Card Footer</p>
-            </CardFooter> */}
+                <CardFooter className="flex justify-center">
+                  <Button
+                    onClick={() => markAsDone(task)}
+                    className="bg-green-400"
+                  >
+                    Feito
+                  </Button>
+                </CardFooter>
               </Card>
             );
           })}

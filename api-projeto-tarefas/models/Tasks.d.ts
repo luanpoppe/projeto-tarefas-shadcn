@@ -6,4 +6,6 @@ declare type Task = {
   priority: 1 | 2 | 3;
   userId?: number;
   projetoTitle?: string;
+  position: number;
+  isDone: boolean;
 };

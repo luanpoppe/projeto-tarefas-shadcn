@@ -1,11 +1,12 @@
 declare type Task = {
-  id?: number;
+  id: number;
   title: string;
   description?: string;
   dataVencimento: string;
   priority: "ALTA" | "MEDIO" | "BAIXO";
   userId?: number;
   projetoTitle?: string;
+  isDone: boolean;
 };
 
 declare type TaskPostBody = {
@@ -16,4 +17,5 @@ declare type TaskPostBody = {
   priority?: 1 | 2 | 3;
   userId?: number;
   projetoTitle?: string;
+  isDone?: boolean;
 };

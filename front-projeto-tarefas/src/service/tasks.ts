@@ -20,3 +20,12 @@ export async function postTask({
   });
   return response.data;
 }
+
+export async function markTaskAsDone(taskId: number) {
+  console.log("taskId: ", taskId);
+  const response = await axios.put(`${apiUrl}/task/update`, {
+    isDone: true,
+    id: taskId,
+  });
+  return response.data;
+}
