@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npx nodemon --watch ./ --ext ts --exec \"ts-node app.ts\"",
     "start:no-rewatch": "npx ts-node main.ts",
-    "build": "tsc --outDir"
+    "build": "tsc --outDir dist"
   },
   "keywords": [],
   "author": "",
