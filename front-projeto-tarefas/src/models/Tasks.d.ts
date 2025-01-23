@@ -19,7 +19,7 @@ declare type TaskPostBody = {
   userId?: number;
   projetoTitle?: string;
   isDone?: boolean;
-  position: number;
+  position?: number;
 };
 
 declare type TaskPutBody = {
