@@ -7,6 +7,7 @@ declare type Task = {
   userId?: number;
   projetoTitle?: string;
   isDone: boolean;
+  position: number;
 };
 
 declare type TaskPostBody = {
@@ -18,4 +19,17 @@ declare type TaskPostBody = {
   userId?: number;
   projetoTitle?: string;
   isDone?: boolean;
+  position: number;
+};
+
+declare type TaskPutBody = {
+  id?: number;
+  title?: string;
+  description?: string;
+  dataVencimento?: Date;
+  priority?: 1 | 2 | 3;
+  userId?: number;
+  projetoTitle?: string;
+  isDone?: boolean;
+  position?: number;
 };

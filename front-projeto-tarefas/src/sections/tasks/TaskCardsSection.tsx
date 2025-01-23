@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { getUserTasks, markTaskAsDone } from "@/service/tasks";
 import { useIsLoading } from "@/utils/customHooks";
+import { sortTasks } from "@/utils/sortTasks";
 import { useEffect, useState } from "react";
 
 export function TaskCardsSection() {
@@ -38,6 +39,7 @@ export function TaskCardsSection() {
         console.log("response: ", response);
         setTasks(response);
         setIsLoading(false);
+        setTimeout(sortTasks, 0);
       } catch (error) {
         console.error("error: ", error);
         setIsLoading(false);
@@ -51,34 +53,45 @@ export function TaskCardsSection() {
       {isLoading ? (
         <Loading />
       ) : (
-        <section className="flex flex-col items-center justify-center gap-3">
-          {tasks.slice(0, qtdCards).map((task) => {
-            return (
-              <Card key={task.id} className="w-2/4">
-                <CardHeader>
-                  <CardTitle>{task.title}</CardTitle>
-                  <CardDescription>
-                    Vencimento:{" "}
-                    {new Date(task.dataVencimento).toLocaleDateString()}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  {task.description && <p>Descrição: {task.description}</p>}
-                  <p>Prioridade: {task.priority}</p>
-                </CardContent>
-                <CardFooter className="flex justify-center">
-                  <Button
-                    onClick={() => markAsDone(task)}
-                    className="bg-green-400"
-                  >
-                    Feito
-                  </Button>
-                </CardFooter>
-              </Card>
-            );
-          })}
-
-          <Button onClick={carregarMais}>Carregar mais</Button>
+        <section>
+          <div
+            className="flex flex-col items-center justify-center gap-3"
+            id="sortableTasks"
+          >
+            {tasks.slice(0, qtdCards).map((task) => {
+              return (
+                <Card
+                  key={task.id}
+                  id={task.id.toString()}
+                  className="w-2/4"
+                  data-id={task.position}
+                >
+                  <CardHeader>
+                    <CardTitle>{task.title}</CardTitle>
+                    <CardDescription>
+                      Vencimento:{" "}
+                      {new Date(task.dataVencimento).toLocaleDateString()}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    {task.description && <p>Descrição: {task.description}</p>}
+                    <p>Prioridade: {task.priority}</p>
+                  </CardContent>
+                  <CardFooter className="flex justify-center">
+                    <Button
+                      onClick={() => markAsDone(task)}
+                      className="bg-green-400"
+                    >
+                      Feito
+                    </Button>
+                  </CardFooter>
+                </Card>
+              );
+            })}
+          </div>
+          <Button onClick={carregarMais} className="mt-3">
+            Carregar mais
+          </Button>
         </section>
       )}
     </>

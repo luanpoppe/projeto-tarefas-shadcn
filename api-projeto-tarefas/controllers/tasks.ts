@@ -34,7 +34,16 @@ export async function createTask(req: Request<{}, {}, Task>, res: Response) {
     },
   });
 
-  res.send(taskCreated);
+  const taskWithPosition = await prisma.task.update({
+    where: {
+      id: taskCreated.id,
+    },
+    data: {
+      position: taskCreated.id,
+    },
+  });
+
+  res.send(taskWithPosition);
 }
 
 export async function getUserTask(
