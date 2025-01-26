@@ -1,4 +1,0 @@
--- AlterTable
-ALTER TABLE "Task" ALTER COLUMN "position" DROP DEFAULT,
-ALTER COLUMN "position" SET DATA TYPE DOUBLE PRECISION;
-DROP SEQUENCE "Task_position_seq";

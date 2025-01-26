@@ -7,6 +7,7 @@ export function sortTasks() {
 
   if (!container) return;
   const sortable = new Sortable(container, {
+    animation: 200,
     onStart: () => {
       positions = sortable.toArray();
       console.log("positions OnStart: ", positions);
