@@ -20,7 +20,7 @@ export function TaskCardsSection() {
 
   function carregarMais() {
     console.log("qtdCards.current: ", qtdCards);
-    setQtdCards(qtdCards + 1);
+    setQtdCards(qtdCards + 4);
     console.log("qtdCards.current: ", qtdCards);
   }
 
