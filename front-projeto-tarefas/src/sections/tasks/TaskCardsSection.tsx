@@ -63,7 +63,7 @@ export function TaskCardsSection() {
                 <Card
                   key={task.id}
                   id={task.id.toString()}
-                  className="w-2/4"
+                  className="w-5/6 lg:w-2/4"
                   data-id={task.position}
                 >
                   <CardHeader>
