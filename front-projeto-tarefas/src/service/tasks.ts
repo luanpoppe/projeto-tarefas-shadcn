@@ -3,10 +3,13 @@ import { apiUrl } from "./service";
 
 export async function getUserTasks(
   userId: number,
-  isDone: boolean = false
+  isDone: boolean = false,
+  project?: string
 ): Promise<Task[]> {
+  const projectQuery = project ? `&project=${project}` : "";
+
   const response = await axios.get(
-    `${apiUrl}/task?userId=${userId}&isDone=${isDone}`
+    `${apiUrl}/task?userId=${userId}&isDone=${isDone}${projectQuery}`
   );
   return response.data;
 }

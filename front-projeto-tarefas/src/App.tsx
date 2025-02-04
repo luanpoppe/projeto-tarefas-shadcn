@@ -1,4 +1,4 @@
-// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useEffect } from "react";
 import { ModeToggle } from "./components/theme-toggle";
 import { TaskCardsSection } from "./sections/tasks/TaskCardsSection";
@@ -12,20 +12,20 @@ function App() {
       <ModeToggle />
       <h1>Tarefas</h1>
 
-      <TaskCardsSection />
-
       <CreateTask />
 
-      {/* <Tabs defaultValue="account" className="w-full">
+      <Tabs defaultValue="pessoais" className="w-full mt-10">
         <TabsList>
-          <TabsTrigger value="account">Account</TabsTrigger>
-          <TabsTrigger value="password">Password</TabsTrigger>
+          <TabsTrigger value="pessoais">Pessoais</TabsTrigger>
+          <TabsTrigger value="estudos">Estudos</TabsTrigger>
         </TabsList>
-        <TabsContent value="account">
-          Make changes to your account here.
+        <TabsContent value="pessoais">
+          <TaskCardsSection projeto="pessoais" />
         </TabsContent>
-        <TabsContent value="password">Change your password here.</TabsContent>
-      </Tabs> */}
+        <TabsContent value="estudos">
+          <TaskCardsSection projeto="estudos" />
+        </TabsContent>
+      </Tabs>
     </>
   );
 }

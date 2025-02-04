@@ -1,3 +1,8 @@
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,19 +23,27 @@ export function CreateTask() {
   }
 
   return (
-    <section className="flex flex-col w-full items-center gap-1.5 mt-10">
-      <h1 className="text-2xl">Criar Tarefa</h1>
-      <LabelInput id="tarefa" labelText="Tarefa" required={true} />
-      <LabelInput
-        id="data-vencimento"
-        labelText="Data de vencimento: "
-        type="date"
-        required={true}
-      />
-      <Button onClick={createTask} className="mt-3">
-        Criar Tarefa
-      </Button>
-    </section>
+    <Collapsible>
+      <CollapsibleTrigger>
+        <Button>Criar tarefa</Button>
+      </CollapsibleTrigger>
+
+      <CollapsibleContent>
+        <section className="flex flex-col w-full items-center gap-1.5 mt-10">
+          <h1 className="text-2xl">Criar Tarefa</h1>
+          <LabelInput id="tarefa" labelText="Tarefa" required={true} />
+          <LabelInput
+            id="data-vencimento"
+            labelText="Data de vencimento: "
+            type="date"
+            required={true}
+          />
+          <Button onClick={createTask} className="mt-3">
+            Criar Tarefa
+          </Button>
+        </section>
+      </CollapsibleContent>
+    </Collapsible>
   );
 }
 

@@ -13,7 +13,7 @@ import { useIsLoading } from "@/utils/customHooks";
 import { sortTasks } from "@/utils/sortTasks";
 import { useEffect, useState } from "react";
 
-export function TaskCardsSection() {
+export function TaskCardsSection({ projeto = "" }: { projeto?: string }) {
   const [tasks, setTasks] = useState<Task[]>([]);
   const { isLoading, setIsLoading } = useIsLoading();
   const [qtdCards, setQtdCards] = useState(1);
@@ -35,7 +35,7 @@ export function TaskCardsSection() {
       setIsLoading(true);
       setQtdCards(1);
       try {
-        const response = await getUserTasks(2);
+        const response = await getUserTasks(2, undefined, projeto);
         console.log("response: ", response);
         setTasks(response);
         setIsLoading(false);

@@ -47,7 +47,12 @@ export async function createTask(req: Request<{}, {}, Task>, res: Response) {
 }
 
 export async function getUserTask(
-  req: Request<{}, {}, {}, { userId: string; isDone?: "true" | "false" }>,
+  req: Request<
+    {},
+    {},
+    {},
+    { userId: string; isDone?: "true" | "false"; project?: string }
+  >,
   res: Response
 ) {
   const isDoneParam = req.query.isDone;
@@ -58,6 +63,7 @@ export async function getUserTask(
     where: {
       userId: Number(req.query.userId),
       isDone: isDoneValue,
+      projetoTitle: req.query.project ? req.query.project : null,
     },
     orderBy: {
       position: "asc",
