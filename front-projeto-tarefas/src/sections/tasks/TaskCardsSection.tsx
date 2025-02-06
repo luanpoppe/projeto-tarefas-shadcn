@@ -8,15 +8,20 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useToast } from "@/hooks/use-toast";
 import { getUserTasks, markTaskAsDone } from "@/service/tasks";
 import { useIsLoading } from "@/utils/customHooks";
+import { actions, useGlobalContext } from "@/utils/reducer";
 import { sortTasks } from "@/utils/sortTasks";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export function TaskCardsSection({ projeto = "" }: { projeto?: string }) {
   const [tasks, setTasks] = useState<Task[]>([]);
   const { isLoading, setIsLoading } = useIsLoading();
   const [qtdCards, setQtdCards] = useState(1);
+
+  const { dispatch, state } = useGlobalContext();
 
   function carregarMais() {
     console.log("qtdCards.current: ", qtdCards);
@@ -26,8 +31,12 @@ export function TaskCardsSection({ projeto = "" }: { projeto?: string }) {
 
   function markAsDone(task: Task) {
     markTaskAsDone(task.id);
-    const updatedTaskList = tasks.filter((t) => t.id != task.id);
-    setTasks(updatedTaskList);
+    const updatedTaskList = state.tasks.filter((t) => t.id != task.id);
+    // setTasks(updatedTaskList);
+    dispatch({
+      type: actions.CHANGE_TASKS,
+      payload: { tasks: updatedTaskList },
+    });
   }
 
   useEffect(() => {
@@ -37,12 +46,19 @@ export function TaskCardsSection({ projeto = "" }: { projeto?: string }) {
       try {
         const response = await getUserTasks(2, undefined, projeto);
         console.log("response: ", response);
-        setTasks(response);
+        // setTasks(response);
+        dispatch({
+          type: actions.CHANGE_TASKS,
+          payload: { tasks: response },
+        });
         setIsLoading(false);
         setTimeout(sortTasks, 0);
+
+        toast.success("Tarefas atualizadas");
       } catch (error) {
         console.error("error: ", error);
         setIsLoading(false);
+        toast.error("Algo deu errado ao atualizar as tarefas");
       }
     }
     asyncEffect();
@@ -58,7 +74,7 @@ export function TaskCardsSection({ projeto = "" }: { projeto?: string }) {
             className="flex flex-col items-center justify-center gap-3"
             id="sortableTasks"
           >
-            {tasks.slice(0, qtdCards).map((task) => {
+            {state.tasks.slice(0, qtdCards).map((task) => {
               return (
                 <Card
                   key={task.id}

@@ -1,14 +1,22 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useEffect } from "react";
+import { useEffect, useReducer } from "react";
 import { ModeToggle } from "./components/theme-toggle";
 import { TaskCardsSection } from "./sections/tasks/TaskCardsSection";
 import { CreateTask } from "./sections/tasks/CreateTask";
+import { GlobalContext, reducer } from "./utils/reducer";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   useEffect(() => console.clear(), []);
+  const initialState: { tasks: Task[] } = {
+    tasks: [],
+  };
+
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <>
+    <GlobalContext.Provider value={{ state: state, dispatch: dispatch }}>
+      <Toaster position="top-center" />
       <ModeToggle />
       <h1>Tarefas</h1>
 
@@ -26,7 +34,7 @@ function App() {
           <TaskCardsSection projeto="estudos" />
         </TabsContent>
       </Tabs>
-    </>
+    </GlobalContext.Provider>
   );
 }
 

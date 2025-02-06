@@ -3,23 +3,44 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { postTask } from "@/service/tasks";
+import { getUserTasks, postTask } from "@/service/tasks";
 import { getValueById } from "@/utils/handleElements";
+import { useState } from "react";
+import { actions, useGlobalContext } from "@/utils/reducer";
+import toast from "react-hot-toast";
 
 export function CreateTask() {
+  const [selectedProject, setSelectedProject] = useState<string>("pessoais");
+  const { dispatch } = useGlobalContext();
+
   async function createTask() {
     const body: TaskPostBody = {
       title: getValueById("tarefa"),
       dataVencimento: new Date(getValueById("data-vencimento")),
+      projetoTitle: selectedProject,
     };
 
     console.log("body: ", body);
 
     const res = await postTask(body);
+    toast.success("Tarefa criada com sucesso!");
     console.log("res: ", res);
+    const updatedList = await getUserTasks(2, undefined, body.projetoTitle);
+    dispatch({
+      type: actions.CHANGE_TASKS,
+      payload: { tasks: updatedList },
+    });
   }
 
   return (
@@ -37,6 +58,11 @@ export function CreateTask() {
             labelText="Data de vencimento: "
             type="date"
             required={true}
+          />
+          <LabelSelect
+            id="projeto"
+            labelText="Projeto:"
+            setSelectedProject={setSelectedProject}
           />
           <Button onClick={createTask} className="mt-3">
             Criar Tarefa
@@ -76,6 +102,33 @@ function LabelInput({
         placeholder={placeholder}
         required={required}
       />
+    </div>
+  );
+}
+
+function LabelSelect(props: {
+  id: string;
+  labelText: string;
+  setSelectedProject: SetState<string>;
+}) {
+  const { id, labelText, setSelectedProject } = props;
+  return (
+    <div className="w-1/2 mt-2">
+      <div className="mb-2">
+        <Label htmlFor={id}>{labelText}</Label>
+      </div>
+      <Select
+        defaultValue="pessoais"
+        onValueChange={(e) => setSelectedProject(e)}
+      >
+        <SelectTrigger>
+          <SelectValue placeholder="Projeto" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="pessoais">Pessoais</SelectItem>
+          <SelectItem value="estudos">Estudos</SelectItem>
+        </SelectContent>
+      </Select>
     </div>
   );
 }

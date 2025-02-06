@@ -4,3 +4,10 @@ export function getValueById(id: string) {
   console.error("NÃO ACHOU O ELEMENTO");
   return "";
 }
+
+export function getValueByName(id: string) {
+  const element = document.querySelector(`[name='${id}']`) as HTMLInputElement;
+  if (element) return element.value;
+  console.error("NÃO ACHOU O ELEMENTO");
+  return "";
+}

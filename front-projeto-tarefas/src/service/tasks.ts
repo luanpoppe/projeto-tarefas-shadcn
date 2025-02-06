@@ -19,12 +19,14 @@ export async function postTask({
   title,
   userId = 2,
   priority = 3,
+  projetoTitle,
 }: TaskPostBody) {
   const response = await axios.post(`${apiUrl}/task/create`, {
     dataVencimento,
     title,
     userId,
     priority,
+    projetoTitle,
   });
   return response.data;
 }
