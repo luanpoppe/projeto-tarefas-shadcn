@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useToast } from "@/hooks/use-toast";
+// import { useToast } from "@/hooks/use-toast";
 import { getUserTasks, markTaskAsDone } from "@/service/tasks";
 import { useIsLoading } from "@/utils/customHooks";
 import { actions, useGlobalContext } from "@/utils/reducer";
@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 export function TaskCardsSection({ projeto = "" }: { projeto?: string }) {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  // const [tasks, setTasks] = useState<Task[]>([]);
   const { isLoading, setIsLoading } = useIsLoading();
   const [qtdCards, setQtdCards] = useState(1);
 
