@@ -1,4 +1,5 @@
 import { changeTaskPostion } from "@/service/tasks";
+import toast from "react-hot-toast";
 import Sortable from "sortablejs";
 
 export function sortTasks() {
@@ -48,6 +49,7 @@ export function sortTasks() {
       const taskId = Number(arrayOfChildren[newIndex].id);
       const newPosition = arrayOfChildren[newIndex].getAttribute("data-id");
       await changeTaskPostion(taskId, Number(newPosition));
+      toast.success("Posição atualizada com sucesso");
     },
   });
 }
