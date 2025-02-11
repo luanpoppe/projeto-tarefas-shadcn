@@ -20,6 +20,7 @@ export async function postTask({
   userId = 2,
   priority = 3,
   projetoTitle,
+  position,
 }: TaskPostBody) {
   const response = await axios.post(`${apiUrl}/task/create`, {
     dataVencimento,
@@ -27,6 +28,7 @@ export async function postTask({
     userId,
     priority,
     projetoTitle,
+    position,
   });
   return response.data;
 }

@@ -37,6 +37,7 @@ export function TaskCardsSection({ projeto = "" }: { projeto?: string }) {
       type: actions.CHANGE_TASKS,
       payload: { tasks: updatedTaskList },
     });
+    toast.success("Tarefa finalizada com sucesso");
   }
 
   useEffect(() => {

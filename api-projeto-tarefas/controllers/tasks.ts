@@ -3,6 +3,7 @@ import { prisma } from "../prisma";
 
 export async function createTask(req: Request<{}, {}, Task>, res: Response) {
   const task = req.body;
+  console.log("task: ", task);
 
   if (!task.dataVencimento || !task.priority || !task.title || !task.userId) {
     res.sendStatus(400);
@@ -34,12 +35,14 @@ export async function createTask(req: Request<{}, {}, Task>, res: Response) {
     },
   });
 
+  console.log("task.position: ", task.position);
+
   const taskWithPosition = await prisma.task.update({
     where: {
       id: taskCreated.id,
     },
     data: {
-      position: taskCreated.id,
+      position: task.position ? task.position : taskCreated.id,
     },
   });
 
